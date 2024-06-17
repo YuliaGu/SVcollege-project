@@ -30,7 +30,7 @@ const pendingOrdersModel = db.model('pendingOrders', orderSchema)
 
 const allMadeOrdersModel = db.model('allMadeOrders', orderSchema)
 
-const updatedOrderModel = db.model('updatedOrder', orderSchema)
+///const updatedOrderModel = db.model('updatedOrder', orderSchema)
 
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/client/homePage.html')
@@ -131,6 +131,7 @@ app.post('/buy', async(req, res) => {
     try{
         if(Object.keys(req.body).length !== 0){ //avoide inserting the empty body req
             await pendingOrdersModel.insertMany(newOrder)
+            await allMadeOrdersModel.insertMany(newOrder)
             res.json({message: 'Order submited'})
         }
     }
@@ -143,10 +144,12 @@ app.post('/buySummery', async(req, res) => {
     let email = req.body.email
 
     try{
-        // let userOrder = await pendingOrdersModel.findOne({email: email})
-        let userOrders = await pendingOrdersModel.find({email: email})
-        let lestOrder = userOrders[userOrders.length - 1]
-        res.json(lestOrder)
+        let userOrder = await pendingOrdersModel.findOne({email: email})
+        // let userOrders = await pendingOrdersModel.find({email: email})
+        // let lestOrder = userOrders[userOrders.length - 1]
+        // res.json(lestOrder)
+        res.json(userOrder)
+        console.log(userOrder);
     }
     catch{
         throw new Error('error')
@@ -156,11 +159,13 @@ app.post('/buySummery', async(req, res) => {
 app.post('/disconnect', async(req, res) => {
     let email = req.body.email
 
+    console.log(email);
     try{
-        let order = pendingOrdersModel.findOne({email: email})
-        if(Object.keys(req.body).length !== 0){ //avoide inserting the empty body req
-            await allMadeOrdersModel.insertMany(order) 
-        }
+        // let order = pendingOrdersModel.findOne({email: email})
+        // console.log(order);
+        // if(Object.keys(req.body).length !== 0){ //avoide inserting the empty body req
+        //     await allMadeOrdersModel.insertMany(order) 
+        // }
         await pendingOrdersModel.deleteOne({email: email})
         res.json({message: 'Order removed from pending'})
     }
@@ -197,7 +202,7 @@ app.post('/removePendingOrder', async(req, res) => {
     let email = req.body.email
 
     try{
-        await pendingOrdersModel.deleteOne({email: email})
+        await pendingOrderModel.deleteOne({email: email})
         res.json({message: 'Order removed from pending'})
     }
     catch{
@@ -209,7 +214,8 @@ app.get('/allMadeOrders', async(req, res) => {
     try{
         let allMadeOrders = await allMadeOrdersModel.find()
         res.json(allMadeOrders)
-        res.json({message: "All orders"})
+        console.log(allMadeOrders);
+        // res.json({message: "All orders"})
     }
     catch{
         throw new Error('error')

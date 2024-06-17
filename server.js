@@ -149,7 +149,6 @@ app.post('/buySummery', async(req, res) => {
         // let lestOrder = userOrders[userOrders.length - 1]
         // res.json(lestOrder)
         res.json(userOrder)
-        console.log(userOrder);
     }
     catch{
         throw new Error('error')
@@ -159,7 +158,6 @@ app.post('/buySummery', async(req, res) => {
 app.post('/disconnect', async(req, res) => {
     let email = req.body.email
 
-    console.log(email);
     try{
         // let order = pendingOrdersModel.findOne({email: email})
         // console.log(order);
@@ -214,7 +212,6 @@ app.get('/allMadeOrders', async(req, res) => {
     try{
         let allMadeOrders = await allMadeOrdersModel.find()
         res.json(allMadeOrders)
-        console.log(allMadeOrders);
         // res.json({message: "All orders"})
     }
     catch{

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="pendingOrders.css">
+</head>
+<body onload="userMessage()">
+    <div id="container">
+        <h4>SV-Shop</h4>
+        <div id="pendingDiv">
+            <p id="userGreeting"></p>
+            <p>You have unfinished order/s</p>
+            <p>Would you like to see?</p>
+            <button onclick="yes()">Yes</button>
+            <button onclick="no()">No</button>
+        </div>
+        <form method="post" action="/pendingOrders" id="pendingOrdersForm" onsubmit="showPendingOrders()">
+        </form>
+    </div>
+
+    <script src="pendingOrders.js"></script>
+</body>
+</html>

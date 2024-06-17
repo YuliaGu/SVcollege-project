@@ -1,0 +1,263 @@
+const loadProductsFromDB = async() => {
+    let res = await fetch('/getProductsList')
+    let data = await res.json()
+
+    let form = document.getElementById('productsForm')
+    let inputNames = []
+    let labelNames = []
+    for(let i = 0; i < data.length; i++){
+        inputNames.push('input')
+        let currentNewInput = document.createElement(inputNames[inputNames.length - 1])
+        currentNewInput.type = 'checkbox'
+        currentNewInput.id = data[i].name
+        currentNewInput.name = data[i].name
+        currentNewInput.value = data[i].price
+
+        labelNames.push('label')
+        let currentNewLabel = document.createElement(labelNames[labelNames.length - 1])
+        currentNewLabel.htmlFor = data[i].name
+        currentNewLabel.appendChild(document.createTextNode(data[i].name + ' - ' + data[i].price))
+
+        let br = document.createElement('br')
+
+        form.append(currentNewInput)
+        form.append(currentNewLabel)
+        form.append(br)
+    }
+    
+    let br = document.createElement('br')
+    form.append(br)
+
+    let submitInput = document.createElement('input')
+    submitInput.type = 'submit'
+    submitInput.value = 'Buy'
+    form.append(submitInput)
+}
+
+const moveToSummery = async() => {
+    let res = await fetch('/getProductsList')
+    let data = await res.json()
+
+    let productsList = []
+    for(let i = 0; i < data.length; i++){
+        let checkboxInput = document.getElementById(data[i].name)
+        if(checkboxInput.checked == 1){
+            productsList.push({
+                name: checkboxInput.getAttribute('id'),
+                price: checkboxInput.getAttribute('value')
+            })
+        }
+    }
+
+    let email = localStorage.getItem("email")
+
+    let result = await fetch('/buy', {
+        headers: {
+            "Content-Type": "application/json"
+        },
+        method: 'post',
+        body: JSON.stringify({
+            email: email,
+            productsList
+        })
+    })
+
+    let data1 = await result.json()
+    if(data1.message == 'Order submited') location.href = '/buySummery'
+    // if(productsList.length == 0) return false
+    // return true
+
+    
+    // let data1 = await result.json()
+    // if(data1.message == 'Order submited') location.href = '/buy'
+}
+
+
+
+
+
+    let div = document.getElementById('inputDiv')
+    let newDiv = document.createElement('div')
+    newDiv.id = 'newDiv'
+    newDiv.addEventListener('click', () => {test('Im working!')})
+    div.append(newDiv)
+
+
+
+
+
+
+
+
+
+
+    ///////////////////////////////////////////////////////////////////////
+// const moveToSummery = async() => {
+//     let email = localStorage.getItem("email")
+
+//     let res = await fetch('/buySummery')
+//     let data = await res.json()
+
+//         let res = await fetch('/buy', {
+//         headers: {
+//             "Content-Type": "application/json"
+//         },
+//         method: 'post',
+//         body: JSON.stringify({
+//             email: email,
+//             productsList: order
+//         })
+//     })
+
+//     let data = await res.json()
+//     if(data.message == 'Order submited') location.href = '/buySummery'
+// }
+////////////////////////////////////////////////////////////////////////
+
+
+
+
+// let selecteProductsList = []
+
+// function addToOrder(name, price){
+//     for(let i = 0; i < selecteProductsList.length; i++){
+//         if(selecteProductsList[i].name == name){
+//             selecteProductsList[i].amount++
+//         }
+//     }  
+//     selecteProductsList.push({name, price, amount: 0})
+//     console.log(selecteProductsList)
+// }
+
+// const loadProductsFromDB = async() => {
+//     let res = await fetch('/getProductsList')
+//     let data = await res.json()
+
+//     let form = document.getElementById('productsForm')
+//     for(let i = 0; i < data.length; i++){
+//         let newDiv = document.createElement('div')
+//         newDiv.id = data[i].name
+//         newDiv.setAttribute('class','productDiv')
+//         newDiv.addEventListener('click', () => {addToOrder(data[i].name, data[i].price)})
+//         // newDiv.onclick = () => {addToOrder(data[i].name, data[i].price)}
+//         // newDiv.setAttribute("onclick", () => {addToOrder(data[i].name, data[i].price)})
+
+//         let divLabel = document.createElement('label')
+//         divLabel.htmlFor = data[i].name
+//         divLabel.appendChild(document.createTextNode(data[i].name + ' - ' + data[i].price))
+//         newDiv.append(divLabel)
+
+//         // let br = document.createElement('br')
+
+//         form.append(newDiv)
+//         // form.append(br)
+//     }
+    
+//     let br = document.createElement('br')
+//     form.append(br)
+
+//     let submitInput = document.createElement('input')
+//     submitInput.type = 'submit'
+//     submitInput.value = 'Buy'
+//     form.append(submitInput)
+// }
+
+// const moveToSummery = async() => {
+//     let email = localStorage.getItem("email")
+
+//     let res = await fetch('/buy', {
+//         headers: {
+//             "Content-Type": "application/json"
+//         },
+//         method: 'post',
+//         body: JSON.stringify({
+//             email: email,
+//             selecteProductsList
+//         })
+//     })
+
+//     let data = await res.json()
+//     if(data.message == 'Order submited') location.href = '/buySummery'
+//     // if(productsList.length == 0) return false
+//     // return true
+
+    
+//     // let data1 = await result.json()
+//     // if(data1.message == 'Order submited') location.href = '/buy'
+// }
+
+///////////////////////////////////////////////////////////////////////////
+
+// const loadProductsFromDB = async() => {
+//     let res = await fetch('/getProductsList')
+//     let data = await res.json()
+
+//     let form = document.getElementById('productsForm')
+//     let inputNames = []
+//     let labelNames = []
+//     for(let i = 0; i < data.length; i++){
+//         inputNames.push('input')
+//         let currentNewInput = document.createElement(inputNames[inputNames.length - 1])
+//         currentNewInput.type = 'checkbox'
+//         currentNewInput.id = data[i].name
+//         currentNewInput.name = data[i].name
+//         currentNewInput.value = data[i].price
+
+//         labelNames.push('label')
+//         let currentNewLabel = document.createElement(labelNames[labelNames.length - 1])
+//         currentNewLabel.htmlFor = data[i].name
+//         currentNewLabel.appendChild(document.createTextNode(data[i].name + ' - ' + data[i].price))
+
+//         let br = document.createElement('br')
+
+//         form.append(currentNewInput)
+//         form.append(currentNewLabel)
+//         form.append(br)
+//     }
+    
+//     let br = document.createElement('br')
+//     form.append(br)
+
+//     let submitInput = document.createElement('input')
+//     submitInput.type = 'submit'
+//     submitInput.value = 'Buy'
+//     form.append(submitInput)
+// }
+
+// const moveToSummery = async() => {
+//     let res = await fetch('/getProductsList')
+//     let data = await res.json()
+
+//     let productsList = []
+//     for(let i = 0; i < data.length; i++){
+//         let checkboxInput = document.getElementById(data[i].name)
+//         if(checkboxInput.checked == 1){
+//             productsList.push({
+//                 name: checkboxInput.getAttribute('id'),
+//                 price: checkboxInput.getAttribute('value')
+//             })
+//         }
+//     }
+
+//     let email = localStorage.getItem("email")
+//     console.log(email);
+//     let result = await fetch('/buy', {
+//         headers: {
+//             "Content-Type": "application/json"
+//         },
+//         method: 'post',
+//         body: JSON.stringify({
+//             email: email,
+//             productsList
+//         })
+//     })
+
+//     let data1 = await result.json()
+//     if(data1.message == 'Order submited') location.href = '/buySummery'
+//     // if(productsList.length == 0) return false
+//     // return true
+
+    
+//     // let data1 = await result.json()
+//     // if(data1.message == 'Order submited') location.href = '/buy'
+// }

@@ -1,0 +1,44 @@
+/*
+#container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#inputDiv{
+    flex-direction: column;
+    align-items: center;
+}
+
+#buttonDiv{
+    flex-direction: row;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+} 
+*/
+
+#container{
+    text-align: center;
+    border: 4px solid purple;
+    height: 200px;
+    width: 250px;
+    margin: auto;
+    background-color: plum;
+    padding-bottom: 18px;
+}
+
+h4{
+    text-decoration: underline;
+    color: purple;
+    padding-top: 8px;
+}
+
+input{
+    padding: 3px;
+    margin-bottom: 4px;
+}
+
+button{
+    margin: auto;
+}

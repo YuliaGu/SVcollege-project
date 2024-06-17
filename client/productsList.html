@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="productsList.css">
+</head>
+<body onload="loadProductsFromDB()">
+    <div id="container">
+        <h4>SV-Shop</h4>
+        <label for="sortDropDown">Sort by: </label>
+        <select name="sortDropDown" id="sortDropDown">
+            <option value="random">Random</option>
+            <option value="byName">By name</option>
+            <option value="byPrice">By price</option>
+          </select>
+          <button onclick="sort()">Sort</button>
+          <br>
+          <br>
+          <input id="searchInput" type="text" placeholder="Search">
+          <button onclick="search()">Search</button>
+          <br>
+          <br>
+        <form method="post" action="/buy" id="productsForm" onsubmit="return moveToSummery()">
+        </form>
+    </div>
+
+    <script src="productsList.js"></script>
+</body>
+</html>
